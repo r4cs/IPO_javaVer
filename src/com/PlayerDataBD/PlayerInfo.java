@@ -1,8 +1,13 @@
 package com.PlayerDataBD;
-import com.Utils.KeyHandler;
 import com.entity.Player;
 
-import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 public class PlayerInfo {
     Player player = new Player();
@@ -10,13 +15,15 @@ public class PlayerInfo {
     private String nickname;
     private String email;
     private String cep;
+    private String endereco;
     private String img;
     private Integer positionX;
     private Integer positionY;
 
-
     public PlayerInfo() {}
-    public PlayerInfo(String nickname, String email, String cep) {
+
+
+    public PlayerInfo(String nickname, String email, String cep) throws IOException {
         this.nickname = nickname;
         this.email = email;
         this.cep = cep;
@@ -24,6 +31,7 @@ public class PlayerInfo {
 //        this.img = player.getPlayerImage().get("playerDown").toString();
         this.positionX = player.position.getX();
         this.positionY = player.position.getY();
+        this.endereco = BuscarCep.buscarCep(this.cep);
     }
 
     public int getId() {
@@ -82,17 +90,26 @@ public class PlayerInfo {
         this.positionY = positionY;
     }
 
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
 
     @Override
     public String toString() {
         return "PlayerInfo{" +
-                "id=" + id +
+                "player=" + player +
+                ", id=" + id +
                 ", nickname='" + nickname + '\'' +
                 ", email='" + email + '\'' +
                 ", cep='" + cep + '\'' +
+                ", endereco='" + endereco + '\'' +
                 ", img='" + img + '\'' +
-                ", positionX='" + positionX + '\'' +
-                ", positionY='" + positionY + '\'' +
+                ", positionX=" + positionX +
+                ", positionY=" + positionY +
                 '}';
     }
 }
